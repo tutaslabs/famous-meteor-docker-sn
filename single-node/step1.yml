@@ -1,0 +1,18 @@
+meteor:
+  build: /vagrant/meteor
+  links:
+   - mongodb
+  volumes:
+   - /vagrant/bundle:/bundle
+  ports:
+   - "80:80"
+  environment:
+    MONGO_URL: mongodb://mongodb:27017/meteor
+    ROOT_URL: http://localhost
+    ME: m1
+
+mongodb:
+  image: mongo
+  volumes:
+   - /data/db:/data/db
+

@@ -1,0 +1,46 @@
+meteor1:
+  build: /vagrant/meteor
+  restart: always
+  links:
+   - mongodb
+  volumes:
+   - /vagrant/bundle:/bundle
+  environment:
+    MONGO_URL: mongodb://mongodb:27017/meteor
+    ROOT_URL: http://localhost
+    ME: m1
+    VIRTUAL_HOST: test.com
+  expose:
+    - "80"
+meteor2:
+  build: /vagrant/meteor
+  restart: always
+  links:
+   - mongodb
+  volumes:
+   - /vagrant/bundle:/bundle
+  environment:
+    MONGO_URL: mongodb://mongodb:27017/meteor
+    ROOT_URL: http://localhost
+    ME: m2
+    VIRTUAL_HOST: test.com
+  expose:
+    - "80"
+
+
+
+mongodb:
+  image: mongo
+  restart: always
+  volumes:
+   - /data/db:/data/db
+
+proxy:
+  image: jwilder/nginx-proxy:0.3.6
+  privileged: true
+  restart: always
+  ports:
+   - "80:80"
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+
