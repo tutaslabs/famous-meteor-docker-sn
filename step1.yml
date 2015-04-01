@@ -1,9 +1,9 @@
 meteor:
-  build: /vagrant/meteor
+  build: meteor
   links:
    - mongodb
   volumes:
-   - /vagrant/bundle:/bundle
+   - /home/vagrant/bundle:/bundle
   ports:
    - "80:80"
   environment:
